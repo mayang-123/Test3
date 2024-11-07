@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information Form</title>
+    <title>My First Ubuntu server PHP Deployment</title>
 </head>
 <body>
     <h1>Student Information Form</h1>
