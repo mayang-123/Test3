@@ -6,7 +6,7 @@
     <title>My First Ubuntu server PHP Deployment</title>
 </head>
 <body>
-    <h1>Student Information Form</h1>
+    <h1>My First Ubuntu server PHP Deployment</h1>
     <form action="submit_form.php" method="post">
         <label for="fname">First Name:</label><br>
         <input type="text" id="fname" name="fname" required><br><br>
