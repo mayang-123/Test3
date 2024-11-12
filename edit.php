@@ -1,61 +1,45 @@
 <?php
-// edit.php - Edit an existing user
+// Database connection settings
+$servername = "localhost";
+$username = "root"; // Update with your database username
+$password = ""; // Update with your database password
+$dbname = "crud_db"; // Database name
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "my_database"; // Updated database name
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Get form data
-    $id = $_POST['id'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
-    $age = $_POST['age'];
-    $address = $_POST['address'];
-    $course_section = $_POST['course_section'];
-
-    // Update the record
-    $sql = "UPDATE users SET first_name='$fname', middle_name='$mname', last_name='$lname', 
-            age='$age', address='$address', course_section='$course_section' WHERE id=$id";
-
-    if ($conn->query($sql) === TRUE) {
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    $conn->close();
-} else {
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "maria"; // Updated database name
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch the user record based on ID
+// Fetch record to edit
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM users WHERE id=$id";
     $result = $conn->query($sql);
-    $user = $result->fetch_assoc();
-
-    $conn->close();
+    $student = $result->fetch_assoc();
 }
+
+// Process form submission to update record
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstname = htmlspecialchars($_POST['firstname']);
+    $middlename = htmlspecialchars($_POST['middlename']);
+    $lastname = htmlspecialchars($_POST['lastname']);
+    $age = htmlspecialchars($_POST['age']);
+    $address = htmlspecialchars($_POST['address']);
+    $course_section = htmlspecialchars($_POST['course_section']);
+    $id = $_POST['id'];
+
+    $sql = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', age='$age', address='$address', course_section='$course_section' WHERE id=$id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Record updated successfully. <a href='index.php'>Go back to records</a>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -63,50 +47,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Edit Record</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-4">
-        <h1>Edit User</h1>
-        <form action="edit.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-            
-            <div class="mb-3">
-                <label for="fname" class="form-label">First Name:</label>
-                <input type="text" id="fname" name="fname" class="form-control" value="<?php echo $user['first_name']; ?>" required>
-            </div>
 
-            <div class="mb-3">
-                <label for="mname" class="form-label">Middle Name:</label>
-                <input type="text" id="mname" name="mname" class="form-control" value="<?php echo $user['middle_name']; ?>" required>
-            </div>
+<div class="container my-4">
+    <h1>Edit Record</h1>
 
-            <div class="mb-3">
-                <label for="lname" class="form-label">Last Name:</label>
-                <input type="text" id="lname" name="lname" class="form-control" value="<?php echo $user['last_name']; ?>" required>
-            </div>
+    <form action="edit.php" method="POST">
+        <input type="hidden" name="id" value="<?= $student['id'] ?>">
 
-            <div class="mb-3">
-                <label for="age" class="form-label">Age:</label>
-                <input type="number" id="age" name="age" class="form-control" value="<?php echo $user['age']; ?>" required>
-            </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First Name:</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" required value="<?= $student['firstname'] ?>">
+        </div>
 
-            <div class="mb-3">
-                <label for="address" class="form-label">Address:</label>
-                <textarea id="address" name="address" class="form-control" rows="3" required><?php echo $user['address']; ?></textarea>
-            </div>
+        <div class="mb-3">
+            <label for="middlename" class="form-label">Middle Name:</label>
+            <input type="text" class="form-control" id="middlename" name="middlename" value="<?= $student['middlename'] ?>">
+        </div>
 
-            <div class="mb-3">
-                <label for="course" class="form-label">Course & Section:</label>
-                <input type="text" id="course" name="course_section" class="form-control" value="<?php echo $user['course_section']; ?>" required>
-            </div>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" required value="<?= $student['lastname'] ?>">
+        </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-        <a href="index.php" class="btn btn-secondary mt-3">Back to Users List</a>
-    </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age:</label>
+            <input type="number" class="form-control" id="age" name="age" required value="<?= $student['age'] ?>">
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <textarea class="form-control" id="address" name="address" rows="4" required><?= $student['address'] ?></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="course_section" class="form-label">Course Section:</label>
+            <input type="text" class="form-control" id="course_section" name="course_section" required value="<?= $student['course_section'] ?>">
+        </div>
+
+        <button 
