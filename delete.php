@@ -1,29 +1,33 @@
 <?php
-// delete.php - Delete a user
-
-// Database connection
+// Database connection settings
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "my_database"; // Updated database name
+$username = "root"; // Update with your database username
+$password = ""; // Update with your database password
+$dbname = "crud_db"; // Database name
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Delete the user record
+// Process record deletion
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "DELETE FROM users WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: index.php");
-        exit();
+        echo "Record deleted successfully. <a href='index.php'>Go back to records</a>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
 }
 
+?>
+
+<?php
+// Close the connection
 $conn->close();
+?>
