@@ -4,16 +4,22 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Christmas-themed Colors */
-h1 {
-    color: #e60000; /* Red */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+/* Christmas-themed Running Light Animation */
+@keyframes runningLights {
+    0% { color: #ff4d4d; } /* Red */
+    20% { color: #00ff00; } /* Green */
+    40% { color: #ffff00; } /* Yellow */
+    60% { color: #ff6600; } /* Orange */
+    80% { color: #00ffff; } /* Cyan */
+    100% { color: #ff00ff; } /* Magenta */
 }
 
-/* Make the "Student Records" title look festive */
-h1.text-center {
+h1 {
     font-size: 3rem;
+    text-align: center;
     letter-spacing: 2px;
+    animation: runningLights 1.5s infinite alternate; /* Apply the running light effect */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for extra glow */
 }
 
 /* Table Styles */
