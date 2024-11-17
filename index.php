@@ -1,8 +1,8 @@
 <?php
 // Database connection settings
 $servername = "localhost";
-$username = "root"; // Update with your database username
-$password = ""; // Update with your database password
+$username = "maria"; // Update with your database username
+$password = "12345"; // Update with your database password
 $dbname = "crud_db"; // Database name
 
 // Create connection
@@ -24,7 +24,10 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Records</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css"> <!-- Link to the custom CSS -->
 </head>
 <body>
 
