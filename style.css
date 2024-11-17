@@ -1,73 +1,70 @@
-/* Basic body styles */
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
 }
 
-/* Container styling */
-.container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-/* Title styling */
+/* Christmas-themed Colors */
 h1 {
-    font-size: 2.5rem;
-    color: #0056b3;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #e60000; /* Red */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Table styling */
+/* Make the "Student Records" title look festive */
+h1.text-center {
+    font-size: 3rem;
+    letter-spacing: 2px;
+}
+
+/* Table Styles */
 table {
+    margin-top: 30px;
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
-    padding: 12px 15px;
+table th, table td {
+    padding: 12px;
     text-align: left;
 }
 
-th {
-    background-color: #007bff;
-    color: #fff;
+table th {
+    background-color: #006400; /* Dark Green */
+    color: white;
+    font-size: 1.1rem;
+}
+
+table td {
+    background-color: #f1f1f1; /* Light Grey */
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f8d7da; /* Light Red */
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #d4edda; /* Light Green */
+}
+
+table td a {
+    margin-right: 10px;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    padding: 8px 15px;
     font-weight: bold;
 }
 
-td {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #ddd;
-}
-
-table tr:nth-child(even) td {
-    background-color: #f1f1f1;
-}
-
-/* Table hover effect */
-table tbody tr:hover {
-    background-color: #e9ecef;
-    cursor: pointer;
-}
-
-/* Button styles */
-.btn {
-    margin: 0 5px;
-}
-
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #ff4d4d; /* Christmas Red */
+    border-color: #ff4d4d;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #e60000; /* Darker Red */
+    border-color: #e60000;
 }
 
 .btn-warning {
@@ -87,25 +84,29 @@ table tbody tr:hover {
 
 .btn-danger:hover {
     background-color: #c82333;
-    border-color: #bd2130;
+    border-color: #c82333;
 }
 
-/* Centering text and adjusting buttons */
-.text-center {
-    text-align: center;
+/* Table Container */
+.container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.mb-3 {
-    margin-bottom: 1rem;
-}
+/* Responsive Table */
+@media (max-width: 768px) {
+    table th, table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
 
-/* Styling for the 'No records found' message */
-td[colspan="7"] {
-    font-style: italic;
-    color: #6c757d;
-}
+    .container {
+        padding: 20px;
+    }
 
-/* Styling the table action buttons (edit, delete) */
-table td .btn {
-    font-size: 0.875rem;
+    h1 {
+        font-size: 2rem;
+    }
 }
